@@ -6,6 +6,7 @@
 let lower = ['a' - 'z']
 let upper = ['A' - 'Z']
 let digit = ['0' - '9']
+let alpha = (lower | upper)
 let var = (lower | upper | digit | '_')
 
 rule tokenize = parse
@@ -21,6 +22,6 @@ rule tokenize = parse
     | "not" { NOT }
     | "("   { LPAR }
     | ")"   { RPAR }
-    | var+ as v { VAR v }
+    | alpha var+ as v { VAR v }
     | eof   { EOF }
     | _     { raise (TokenizeError "illegal string") }
